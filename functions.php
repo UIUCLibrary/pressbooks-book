@@ -398,17 +398,6 @@ function pressbooks_theme_add_metadata() {
 
 add_action( 'wp_head', 'pressbooks_theme_add_metadata' );
 
--function iopn_cover_promo() {
--	?>
--	<?php if ( ! defined( 'PB_HIDE_COVER_PROMO' ) || PB_HIDE_COVER_PROMO === false ) : ?>
--	<a href="https://pb-sandbox.library.illinois.edu/" class="iopn-brand"><img src="<?php echo get_template_directory_uri(); ?>/dist//images/iopn_color.png" alt="iopn-branding" width="186" height="123" /> <span><?php _e( 'Illinois Publishing', 'pressbooks-book' ); ?></span></a>
--	<?php else : ?>
--	<div class="spacer"></div>
--	<?php endif;
--}
--
--add_action( 'pb_cover_promo', 'iopn_cover_promo' );
--
 /**
  * Restrict search.
  */
