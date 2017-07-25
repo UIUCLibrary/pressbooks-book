@@ -1,5 +1,5 @@
 {
-  "name": "pressbooks-book",
+  "name": "@pressbooks/pressbooks-book",
   "description": "Named after Martin Luther, this is a traditional book theme, good for novels, and text-heavy non-fiction. An earlier version of this theme was commissioned by Fortress Press.",
   "author": "Pressbooks (Book Oven Inc.)",
   "license": "GPL-2.0+",
@@ -21,5 +21,44 @@
     "hot": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "lint": "node_modules/stylelint/bin/stylelint.js '**/*.scss' --syntax scss"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+  	"rules": {
+  		"indentation": 2,
+  		"media-feature-name-no-unknown": [
+  			true,
+  			{
+  				"ignoreMediaFeatureNames": [
+  					"min--moz-device-pixel-ratio"
+  				]
+  			}
+  		],
+  		"property-no-unknown": [
+  			true,
+  			{
+  				"ignoreProperties": [
+  					"footnote-style-position",
+  					"hyphenate-before",
+  					"hyphenate-after",
+  					"hyphenate-lines",
+  					"margin-inside",
+  					"margin-outside",
+  					"prince-bookmark-level",
+  					"prince-footnote-policy",
+  					"prince-image-resolution",
+  					"prince-page-group"
+  				]
+  			}
+  		],
+  		"selector-pseudo-element-no-unknown": [
+  			true,
+  			{
+  				"ignorePseudoElements": [
+  					"footnote-call"
+  				]
+  			}
+  		]
+  	}
   }
 }

@@ -92,6 +92,9 @@ function pb_enqueue_scripts() {
 			if ( ! is_file( $fullpath ) ) {
 				\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
 			}
+			if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) && get_stylesheet() !== 'pressbooks-book' ) {
+				wp_enqueue_style( 'pressbooks/book', get_template_directory_uri() . '/style.css', false, null, 'screen, print' );
+			}
 			wp_enqueue_style( 'pressbooks/theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', false, null, 'screen, print' );
 		} else {
 			wp_enqueue_style( 'pressbooks/theme', get_stylesheet_directory_uri() . '/style.css', false, null, 'screen, print' );
@@ -274,9 +277,7 @@ function pressbooks_copyright_license() {
 	$post_meta = get_post_meta( $id );
 	$link = get_permalink( $id );
 	$html = $license = $copyright_holder = '';
-	$transient = get_transient( "license-inf-$id" );
-	$updated = [ $license, $copyright_holder, $title ];
-	$changed = false;
+	$transient_id = "license-inf-$id";
 	$lang = ( ! empty( $book_meta['pb_language'] ) ) ? $book_meta['pb_language'] : 'en' ;
 
 	// Copyright holder, set in order of precedence
@@ -303,9 +304,12 @@ function pressbooks_copyright_license() {
 		$license = $book_meta['pb_book_license'];
 	}
 
-	 // check if the user has changed anything
+	// check if the user has changed anything
+	$transient = get_transient( $transient_id );
+	$changed = false;
 	if ( is_array( $transient ) ) {
-		foreach ( $updated as $val ) {
+		$updated = [ $license, $copyright_holder, $title ];
+		foreach ( $updated as $key => $val ) {
 			if ( ! array_key_exists( $val, $transient ) ) {
 				$changed = true;
 			}
@@ -315,7 +319,7 @@ function pressbooks_copyright_license() {
 	if ( false === $transient || true === $changed ) {
 
 		// get xml response from API
-		$response = \Pressbooks\Metadata::getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
+		$response = \Pressbooks\Metadata\get_license_xml( $license, $copyright_holder, $link, $title, $lang );
 
 		try {
 			// convert to object
@@ -326,7 +330,7 @@ function pressbooks_copyright_license() {
 				throw new \Exception( 'Creative Commons license API not returning expected results at Pressbooks\Metadata::getLicenseXml' );
 			} else {
 				// process the response, return html
-				$html = \Pressbooks\Metadata::getWebLicenseHtml( $result->html );
+				$html = \Pressbooks\Metadata\get_web_license_html( $result->html );
 			}
 		} catch ( \Exception $e ) {
 			error_log( $e->getMessage() );
@@ -338,7 +342,7 @@ function pressbooks_copyright_license() {
 			$title => '',
 		];
 		// expires in 24 hours
-		set_transient( "license-inf-$id", $value, 86400 );
+		set_transient( $transient_id, $value, DAY_IN_SECONDS );
 	} else {
 		$html = $transient[ $license ] ;
 	}
@@ -432,3 +436,9 @@ function pb_social_media_enabled() {
 	}
 	return false;
 }
+
+function pressbooks_book_setup() {
+	load_theme_textdomain( 'pressbooks-book', get_template_directory() . '/languages' );
+}
+
+add_action( 'after_setup_theme', 'pressbooks_book_setup' );
