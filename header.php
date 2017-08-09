@@ -39,10 +39,10 @@ if ( $paged >= 2 || $page >= 2 ) {
 <?php wp_head(); ?>
 
 </head>
-<header style="linear-gradient(to right, white , #24478f);border:0px;">
+<header>
 <h1><a href="https://pb-sandbox.library.illinois.edu">
-	<img border="0" align="left" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_navy.png" alt="IOPN Network"></img>
-	<img border="0" align="bottom;left;" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding"></img></a></h1>
+	<img border="0" align="left" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_navy.png" alt="IOPN Network" width="186" height="100" ></img>
+	<img border="0" align="bottom;" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding" width="186" height="100" ></img></a></h1>
 </header>
 <?php if ( is_front_page() ) {
 	$schema = 'itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor image inLanguage keywords publisher" ';
