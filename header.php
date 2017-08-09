@@ -17,9 +17,9 @@
 
 	<?php wp_head(); ?>
 </head>
-<header style="background-color:#24478f;border:0px;">
+<header style="linear-gradient(to right, white , #24478f);border:0px;">
 <h1><a href="https://pb-sandbox.library.illinois.edu">
-	<img border="0" align="left" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_color.png" alt="IOPN Network"></img>
+	<img border="0" align="left" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_navy.png" alt="IOPN Network"></img>
 	<img border="0" align="bottom;left;" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding"></img></a></h1>
 </header>
 <?php
