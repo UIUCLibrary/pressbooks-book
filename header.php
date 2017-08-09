@@ -20,7 +20,7 @@
 <header style="background-color:#24478f">
 <a href="https://pb-sandbox.library.illinois.edu">
 	<img style="align:left" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_navy.png" alt="IOPN Network" width="186" height="100" ></img>
-	<img style="align:bottom" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding" width="286" height="200" ></img></a>
+	<img style="align:bottom; background-color:transparent" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding" width="286" height="200" ></img></a>
 </header>
 <?php
 if ( is_front_page() ) {
