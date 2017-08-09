@@ -17,10 +17,10 @@
 
 	<?php wp_head(); ?>
 </head>
-<header>
-<div style="background-color:navy;"><h1><a href="https://pb-sandbox.library.illinois.edu">
+<header style="background-color:navy;">
+<h1><a href="https://pb-sandbox.library.illinois.edu">
 	<img align="left" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_color.png" alt="IOPN Network"></img>
-	<img align="left" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding"></img></a></h1></div>
+	<img align="left" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding"></img></a></h1>
 </header>
 <?php
 if ( is_front_page() ) {
