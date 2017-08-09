@@ -42,7 +42,7 @@ if ( $paged >= 2 || $page >= 2 ) {
 <header style="background-color:#24478f">
 <a href="https://pb-sandbox.library.illinois.edu">
 	<img style="align:left; border:none; background-color:transparent" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_navy.png" alt="IOPN Network" width="186" height="100" ></img>
-	<img style="align:bottom; border:none; background-color:transparent" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding" width="286" height="200" ></img></a>
+	<img style="align:bottom; border:none; background-color:transparent" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding" width="400" height="300" ></img></a>
 
 <div class="log-wrap">	<!-- Login/Logout -->
 		<?php if ( ! is_single() ) : ?>
