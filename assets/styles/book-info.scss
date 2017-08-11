@@ -894,17 +894,17 @@ span.small.odf {
 **************************************************************/
 
 .IOPNheader {
-	color: $IOPNblue;
+	background-color: $IOPNblue;
 }
 
 #IOPNcolor {
-	align: bottom; 
+	vertical-align: bottom; 
 	border: none; 
 	background-color: transparent;
 }
 
 #UIUCbrand {
-	align: top; 
+	vertial-align: top; 
 	border: none; 
 	background-color: transparent;
 }
