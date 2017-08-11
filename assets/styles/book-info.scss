@@ -888,3 +888,23 @@ span.small.odf {
     background-image: url(../images/odt-72.png);
   }
 }
+
+/**************************************************************
+* Header
+**************************************************************/
+
+.IOPNheader {
+	color: $IOPNblue;
+}
+
+#IOPNcolor {
+	align: bottom; 
+	border: none; 
+	background-color: transparent;
+}
+
+#UIUCbrand {
+	align: top; 
+	border: none; 
+	background-color: transparent;
+}
