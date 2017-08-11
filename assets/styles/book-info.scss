@@ -889,25 +889,23 @@ span.small.odf {
   }
 }
 
-.IOPNheader header {
-	background-color: $IOPNblue;
+.iopn-header {
+	background-color: $iopn-blue;
 }
 
-.header-containter div {
+.header-containter {
 	position: relative;
-	width: 150px;
-	height: 50px;
+	width: 100px;
+	height: 25px;
 }
 
-#IOPNcolor img {
-	vertical-align: bottom; 
+#iopn-color { 
 	border: none; 
 	background-color: transparent;
 }
 
-#UIUCbrand img {
+#uiuc-brand {
 	position: absolute;
-	vertial-align: top; 
 	border: none; 
 	background-color: transparent;
 }
