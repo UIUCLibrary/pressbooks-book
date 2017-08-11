@@ -40,8 +40,9 @@ if ( $paged >= 2 || $page >= 2 ) {
 
 </head>
 <header class="IOPNheader">
-<img id="UIUCbrand" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding" width="400" height="300" ></img>
-	<img id="IOPNcolor" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_color.png" alt="IOPN Network" width="186" height="100" ></img>
+<div class="header-containter">
+<img id="UIUCbrand" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding"></img>
+<img id="IOPNcolor" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_color.png" alt="IOPN Network"></img></div>
 
 <div class="log-wrap">	<!-- Login/Logout -->
 		<?php if ( ! is_single() ) : ?>

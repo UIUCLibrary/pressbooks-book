@@ -897,6 +897,12 @@ span.small.odf {
 	background-color: $IOPNblue;
 }
 
+.header-containter{
+	position: relative;
+	width: 200px;
+	height: 100px;
+}
+
 #IOPNcolor {
 	vertical-align: bottom; 
 	border: none; 
@@ -904,6 +910,7 @@ span.small.odf {
 }
 
 #UIUCbrand {
+	position: absolute;
 	vertial-align: top; 
 	border: none; 
 	background-color: transparent;
