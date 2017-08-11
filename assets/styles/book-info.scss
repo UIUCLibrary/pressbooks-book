@@ -893,23 +893,23 @@ span.small.odf {
 * Header
 **************************************************************/
 
-.IOPNheader {
+.IOPNheader header {
 	background-color: $IOPNblue;
 }
 
-.header-containter{
+.header-containter div {
 	position: relative;
 	width: 200px;
 	height: 100px;
 }
 
-#IOPNcolor {
+#IOPNcolor img {
 	vertical-align: bottom; 
 	border: none; 
 	background-color: transparent;
 }
 
-#UIUCbrand {
+#UIUCbrand img {
 	position: absolute;
 	vertial-align: top; 
 	border: none; 
