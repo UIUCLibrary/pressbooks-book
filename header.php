@@ -17,23 +17,7 @@
 
 	<?php wp_head(); ?>
 </head>
-<header class="iopn-header">
-<a href="http://library.illinois.edu"><img id="uiuc-brand" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding"></img></a>
-<a href="https://iopn.library.illinois.edu/"><img id="iopn-color" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_color.png" alt="IOPN Network"></img></a> <?php echo "Illinois Open Publishing Network"?>
 
-<div class="log-wrap">	<!-- Login/Logout -->
-		<?php if ( ! is_single() ) : ?>
-			<?php if ( ! is_user_logged_in() ) : ?>
-				<a href="<?php echo wp_login_url( get_permalink() ); ?>" class=""><?php _e( 'login', 'pressbooks-book' ); ?></a>
-				<?php else : ?>
-				<a href="<?php echo  wp_logout_url(); ?>" class=""><?php _e( 'logout', 'pressbooks-book' ); ?></a>
-				<?php if ( is_super_admin() || is_user_member_of_blog() ) : ?>
-				<a href="<?php echo get_option( 'home' ); ?>/wp-admin"><?php _e( 'Admin', 'pressbooks-book' ); ?></a>
-				<?php endif; ?>
-			<?php endif; ?>
-		<?php endif; ?>
-	</div>	
-	</header>
 <?php
 if ( is_front_page() ) {
 	$schema = 'itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor image inLanguage keywords publisher" ';
