@@ -889,7 +889,7 @@ span.small.odf {
   }
 }
 
-.iopn-header, .private-block{
+.iopn-header{
 	margin: auto;
 	width: 100%;
 	vertical-align: text-bottom;
@@ -898,14 +898,14 @@ span.small.odf {
 	font-color: $white;
 	}
 
-#iopn-color img.left{
+#iopn-color {
 	height:20px;
 	width:30px;
 	border: none; 
 	background-color: transparent;
 	}
 
-#uiuc-brand img.left{
+#uiuc-brand {
 	height: 25px;
 	width: 50px;
 	border: none; 
