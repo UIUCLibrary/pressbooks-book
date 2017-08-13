@@ -889,19 +889,25 @@ span.small.odf {
   }
 }
 
-.iopn-header {
+.iopn-header{
 	margin: auto;
 	width: 100%;
+	vertical-align: text-bottom;
 	background-color: $iopn-blue;
+	font-size: 20px;
+	font-color: $white;
 	}
 
-#iopn-color img {
+#iopn-color img{
+	height:20px;
+	width:30px;
 	border: none; 
 	background-color: transparent;
 	}
 
-#uiuc-brand img {
-	position: absolute;
+#uiuc-brand img{
+	height: 25px;
+	width: 50px;
 	border: none; 
 	background-color: transparent;
 	}
