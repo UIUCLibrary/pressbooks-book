@@ -20,7 +20,7 @@
 	
 <header class="iopn-header">
 <a href="http://library.illinois.edu"><img id="uiuc-brand" src="<?php echo get_template_directory_uri(); ?>/assets/images/ui_library.png" alt="university branding"></img></a>
-<a href="https://iopn.library.illinois.edu/"><img id="iopn-color" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_color.png" alt="IOPN Network"></img><div id=iopn-txt>Illinois Open Publishing Network</div></a> 
+<a href="https://iopn.library.illinois.edu/"><img id="iopn-color" src="<?php echo get_template_directory_uri(); ?>/assets/images/iopn_color.png" alt="IOPN Network"></img><?php echo"<h1>Illinois Open Publishing Network</h1>"; ?></a> 
 
 <div class="log-wrap">	<!-- Login/Logout -->
 		<?php if ( ! is_single() ) : ?>
