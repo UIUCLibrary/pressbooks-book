@@ -91,32 +91,16 @@ if ( \Pressbooks\Book\Helpers\social_media_enabled() ) {
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'pressbooks-book' ); ?></a>
 	<?php get_template_part( 'partials/content', 'accessibility-toolbar' ); ?>
 
+	<div class="site-brand">
+		<div id="ui-library" class="site-logo">
+			<a href="https://www.library.illinois.edu/" title="University Library"><img src="<?php bloginfo( 'template_directory' ); ?>/dist/images/ui_lib_white_comp_trans.png" class="img-logo" alt="[Block I] ILLINOIS University Library"></a>
+		</div>
+		<div id="iopn" class="site-logo">
+			<a href="https://iopn.library.illinois.edu/" title="Illinois Open Publishing Network"><img src="<?php bloginfo( 'template_directory' ); ?>/dist/images/iopn_white_comp_trans.png" class="img-logo" alt="IOPN" title="Illinois Open Publishing Network"></a>
+		</div>
+	</div>
 	<header class="header" role="banner">
 		<div class="header__inside">
-			<div class="header__brand">
-				<a aria-label="<?php echo get_bloginfo( 'name', 'display' ); ?>" href="<?php echo network_home_url(); ?>">
-					<?php
-					$root_id = get_network()->site_id;
-					if ( has_custom_logo( $root_id ) ) {
-						?>
-						<?php
-						switch_to_blog( $root_id );
-						$custom_logo_id = get_theme_mod( 'custom_logo' );
-						printf(
-							'<img class="header__logo--img" src="%1$s" srcset="%2$s" alt="%3$s" />',
-							wp_get_attachment_image_src( $custom_logo_id, 'logo' )[0],
-							wp_get_attachment_image_srcset( $custom_logo_id, 'large' ),
-							/* translators: %s: name of network */
-							sprintf( __( 'Logo for %s', 'pressbooks-book' ), get_bloginfo( 'name', 'display' ) )
-						);
-						restore_current_blog();
-						?>
-					<?php } else { ?>
-					<svg class="header__logo--svg" aria-role="img">
-						<use xlink:href="#logo-pressbooks" />
-					</svg><?php } ?>
-				</a>
-			</div>
 			<div class="header__nav">
 				<a class="header__nav-icon js-header-nav-toggle" href="#navigation"><?php _e( 'Toggle Menu', 'pressbooks-book' ); ?><span class="header__nav-icon__icon"></span></a>
 				<nav class="js-header-nav" id="navigation">
