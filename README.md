@@ -5,21 +5,19 @@
 [![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks-book.svg)](https://packagist.org/packages/pressbooks/pressbooks-book)
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/pressbooks/pressbooks-book.svg)](https://packagist.org/packages/pressbooks/pressbooks-book)
 
+[![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks-book.svg)](https://packagist.org/packages/pressbooks/pressbooks-book)
 [![Build Status](https://travis-ci.org/pressbooks/pressbooks-book.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks-book)
 [![codecov](https://codecov.io/gh/pressbooks/pressbooks-book/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks-book/branch/dev)
 [![Translate McLuhan](https://img.shields.io/badge/dynamic/json.svg?label=translated&url=https%3A%2F%2Ftenpercent.now.sh%2F%3Forganization%3Dpressbooks%26project%3Dpressbooks-book&query=%24.status&colorB=e05d44&suffix=%25)](https://www.transifex.com/pressbooks/pressbooks-book/translate/)
 
-[![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks-book.svg)](https://packagist.org/packages/pressbooks/pressbooks-book)
-[![Open Collective](https://opencollective.com/pressbooks/tiers/backer/badge.svg?label=backers&color=brightgreen)](https://opencollective.com/pressbooks/)
-[![Open Collective](https://opencollective.com/pressbooks/tiers/sponsor/badge.svg?label=sponsors&color=brightgreen)](https://opencollective.com/pressbooks/)
 
 This theme is named after Canadian media theorist Marshall McLuhan, who coined the phrase “the medium is the message.” It is designed for academic writing and is also suitable for fiction. Headings are set in Cormorant Garamond, and body type is set in Lora. McLuhan is the default book theme for Pressbooks.
 
 ## Requirements
 
 * PHP >= 7.1
-* WordPress >= 4.9.8
-* Pressbooks >= 5.5.3
+* WordPress >= 5.2.2
+* Pressbooks >= 5.9.2
 
 ## Installation
 
@@ -40,3 +38,10 @@ composer require pressbooks/pressbooks-book
 Install the [GitHub Updater plugin](https://github.com/afragen/github-updater).
 
 Then, from the GitHub Updater interface, navigate to the "Install Theme" tab. Enter [https://github.com/pressbooks/pressbooks-book](https://github.com/pressbooks/pressbooks-book) as the Theme URI, then click "Install Theme". Tagged updates to this theme will then be available as normal WordPress updates.
+
+## Changelog
+
+### 2.8.10
+
+* See: https://github.com/pressbooks/pressbooks-book/releases/tag/2.8.10
+* Full release history available at: https://github.com/pressbooks/pressbooks-book/releases

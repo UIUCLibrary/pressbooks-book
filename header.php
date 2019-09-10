@@ -10,11 +10,11 @@
 	<link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/site.webmanifest">
 	<link rel="mask-icon" href="<?php echo get_template_directory_uri(); ?>/dist/images/safari-pinned-tab.svg" color="#b01109">
 	<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/dist/images/favicon.ico">
+	<meta name="application-name" content="Pressbooks">
 	<meta name="msapplication-TileColor" content="#b01109">
 	<meta name="msapplication-config" content="<?php echo get_template_directory_uri(); ?>/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" /><?php // TODO ?>
-
 	<?php wp_head(); ?>
 </head>
 	
@@ -65,7 +65,7 @@ if ( is_front_page() ) {
 </svg>
 
 <?php
-if ( \Pressbooks\Book\Helpers\social_media_enabled() ) {
+if ( \PressbooksBook\Helpers\social_media_enabled() ) {
 	get_template_part( 'partials/content', 'facebook-js' ); }
 ?>
 
@@ -87,7 +87,7 @@ if ( \Pressbooks\Book\Helpers\social_media_enabled() ) {
 				<a class="header__nav-icon js-header-nav-toggle" href="#navigation"><?php _e( 'Toggle Menu', 'pressbooks-book' ); ?><span class="header__nav-icon__icon"></span></a>
 				<nav class="js-header-nav" id="navigation">
 					<ul id="nav-primary-menu" class="nav--primary">
-						<?php echo \Pressbooks\Book\Helpers\display_menu(); ?>
+						<?php echo \PressbooksBook\Helpers\display_menu(); ?>
 					</ul>
 				</nav>
 			</div>
