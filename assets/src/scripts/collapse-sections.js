@@ -3,6 +3,25 @@
  */
 
 document.addEventListener( 'DOMContentLoaded', function () {
+
+	// ### Helper functions:
+
+	/**
+	 * @param {string} url
+	 * @returns {string}
+	 */
+	function url_domain( url ) {
+		const matches = url.match( /^https?:\/\/([^/?#]+)(?:[/?#]|$)/i );
+		const domain = matches && matches[ 1 ];  // domain will be null if no match is found
+		if ( typeof domain === 'string' || domain instanceof String ) {
+			return domain;
+		} else {
+			return '';
+		}
+	}
+
+	// ### Show/hide code:
+
 	// Get all the headings
 	const sectionHeadingEl = 'h1';
 	const headings = document.querySelectorAll(
@@ -28,7 +47,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			let elems = [];
 			while (
 				elem.nextElementSibling &&
-				elem.nextElementSibling.tagName !== 'H1'
+				elem.nextElementSibling.tagName !== 'H1' &&
+				! elem.nextElementSibling.classList.contains( 'nav-reading--page' ) &&
+				! ( elem.nextElementSibling.tagName === 'DIV' && elem.nextElementSibling.className === 'glossary' )
 			) {
 				elems.push( elem.nextElementSibling );
 				elem = elem.nextElementSibling;
@@ -61,15 +82,40 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		// Assign the button
 		let btn = heading.querySelector( 'button' );
 
+		// If there's a URL hash linking to an anchor in this section, open it.
+		if ( document.location.hash && document.location.hash !== '#' ) {
+			if ( wrapper.querySelector( document.location.hash ) ) {
+				heading.setAttribute( 'data-collapsed', 'false' );
+				btn.setAttribute( 'aria-expanded', 'true' );
+				wrapper.hidden = false;
+			}
+		}
+
 		btn.onclick = () => {
 			// Cast the state as a boolean
 			let expanded = btn.getAttribute( 'aria-expanded' ) === 'true' || false;
-
 			// Switch the state
 			btn.setAttribute( 'aria-expanded', ! expanded );
 			heading.setAttribute( 'data-collapsed', expanded );
 			// Switch the content's visibility
 			wrapper.hidden = expanded;
+			// Trigger H5P resize
+			window.dispatchEvent( new Event( 'resize' ) );
+			// Unfurl collapsed iframes
+			if ( ! expanded && ! heading.hasAttribute( 'data-unfurled' ) ) {
+				const collapsedIframes = wrapper.querySelectorAll( 'iframe' );
+				Array.prototype.forEach.call( collapsedIframes, iframe => {
+				// Hack: Reload broken PHeT Iframes
+				// @see https://github.com/phetsims/tasks/issues/1002
+					if ( url_domain( iframe.src ).includes( 'phet.colorado.edu' ) ) {
+					iframe.src = iframe.src; // eslint-disable-line
+					}
+				} );
+			}
+			// Give heading a data-attribute to show that
+			// collapsed section has been unfurled
+			heading.setAttribute( 'data-unfurled', true );
+
 		};
 	} );
 } );

@@ -6,7 +6,7 @@ use function \Pressbooks\Image\attachment_id_from_url;
 
 <section class="book-header">
 	<div class="book-header__inner">
-		<?php \Pressbooks\Book\Helpers\get_links( false ); ?>
+		<?php \PressbooksBook\Helpers\get_links( false ); ?>
 		<h1 class="section__title book-header__title">
 			<span class="screen-reader-text"><?php _e( 'Book Title', 'pressbooks-book' ); ?>: </span><?php bloginfo( 'name' ); ?>
 		</h1>
@@ -61,21 +61,22 @@ if ( ! empty( $files ) && ( ! empty( $site_option['allow_redistribution'] ) ) &&
 
 						// Rewrite rule
 						$url = home_url( "/open/download?type={$filetype}" );
+						$title = esc_js( get_bloginfo( 'name' ) );
 
 						// Tracking event defaults to Google Analytics (Universal). @codingStandardsIgnoreStart
 						// Filter like so (for Piwik):
 						// add_filter('pressbooks_download_tracking_code', function( $tracking, $filetype ) {
-						//  return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
+						//  return "_paq.push(['trackEvent','exportFiles','Downloads','{$title}:{$filetype}']);";
 						// }, 10, 2);
 						// Or for Google Analytics (Classic):
 						// add_filter('pressbooks_download_tracking_code', function( $tracking, $filetype ) {
-						//  return "_gaq.push(['_trackEvent','exportFiles','Downloads','{$file_class}']);";
+						//  return "_gaq.push(['_trackEvent','exportFiles','Downloads','{$title}:{$filetype}']);";
 						// }, 10, 2); @codingStandardsIgnoreEnd
-						$tracking = apply_filters( 'pressbooks_download_tracking_code', "ga('send','event','exportFiles','Downloads','{$filetype}');", $filetype );
+						$tracking = apply_filters( 'pressbooks_download_tracking_code', "ga('send','event','exportFiles','Downloads','{$title}:{$filetype}');", $filetype, $title );
 						?>
 					<li class="dropdown-item">
 						<a rel="nofollow" onclick="<?php echo $tracking; ?>" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="<?php echo $url; ?>">
-							<?php echo \Pressbooks\Book\Helpers\get_name_for_filetype( $filetype ); ?>
+							<?php echo \Pressbooks\Modules\Export\get_name_from_filetype_slug( $filetype ); ?>
 							<meta itemprop="price" content="$0.00">
 							<link itemprop="bookFormat" href="http://schema.org/EBook">
 							<link itemprop="availability" href="http://schema.org/InStock">
@@ -85,9 +86,9 @@ if ( ! empty( $files ) && ( ! empty( $site_option['allow_redistribution'] ) ) &&
 					<ul>
 				</div>
 			<?php } ?>
-				<?php if ( \Pressbooks\Book\Helpers\social_media_enabled() ) { ?>
+				<?php if ( \PressbooksBook\Helpers\social_media_enabled() ) { ?>
 				<div class="book-header__share book-header__cover__share">
-					<?php echo \Pressbooks\Book\Helpers\share_icons(); ?>
+					<?php echo \PressbooksBook\Helpers\share_icons(); ?>
 				</div>
 				<?php } ?>
 			</div>
@@ -102,8 +103,8 @@ if ( ! empty( $files ) && ( ! empty( $site_option['allow_redistribution'] ) ) &&
 		<div class="book-header__license">
 			<span class="screen-reader-text"><?php _e( 'License', 'pressbooks-book' ); ?>: </span>
 			<?php $license = ( isset( $book_information['pb_book_license'] ) ) ? $book_information['pb_book_license'] : 'all-rights-reserved'; ?>
-			<div class="book-header__license__icons license-icons"><?php echo \Pressbooks\Book\Helpers\license_to_icons( $license ); ?></div>
-			<span class="book-header__license__text license-text"><?php echo \Pressbooks\Book\Helpers\license_to_text( $license ); ?></span>
+			<div class="book-header__license__icons license-icons"><?php echo \PressbooksBook\Helpers\license_to_icons( $license ); ?></div>
+			<span class="book-header__license__text license-text"><?php echo \PressbooksBook\Helpers\license_to_text( $license ); ?></span>
 		</div>
 		<div class="book-header__cta">
 			<?php if ( pb_get_first_post_id() ) { ?>
@@ -121,9 +122,9 @@ if ( array_filter( get_option( 'pressbooks_ecommerce_links', [] ) ) ) {
 }
 ?>
 		</div> <!-- end .call-to-action -->
-		<?php if ( \Pressbooks\Book\Helpers\social_media_enabled() ) { ?>
+		<?php if ( \PressbooksBook\Helpers\social_media_enabled() ) { ?>
 		<div class="book-header__share">
-			<?php echo \Pressbooks\Book\Helpers\share_icons(); ?>
+			<?php echo \PressbooksBook\Helpers\share_icons(); ?>
 		</div>
 		<?php } ?>
 		<?php

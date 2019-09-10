@@ -1,6 +1,6 @@
 {
   "name": "aetna",
-  "version": "1.0.0-alpha.20",
+  "version": "1.0.0-alpha.26",
   "description": "Front-end style guide and pattern library for Pressbooks.",
   "style": "assets/styles/aetna.scss",
   "scripts": {
@@ -12,19 +12,20 @@
     "fractal:start": "fractal start --sync",
     "rmdist": "rimraf public",
     "lint": "npm run -s lint:scripts && npm run -s lint:styles",
-    "lint:scripts": "node_modules/eslint/bin/eslint.js \"src/components/**/*.js\"",
-    "lint:styles": "node_modules/stylelint/bin/stylelint.js \"src/components/**/*.scss\" --syntax scss",
+    "lint:scripts": "cross-env NODE_ENV=development node_modules/eslint/bin/eslint.js \"src/components/**/*.js\"",
+    "lint:styles": "cross-env NODE_ENV=development node_modules/stylelint/bin/stylelint.js \"src/components/**/*.scss\" --syntax scss",
     "test": "npm run -s lint"
   },
   "dependencies": {
     "@frctl/fractal": "^1.1.7"
   },
   "devDependencies": {
-    "pressbooks-build-tools": "^0.13.0"
+    "pressbooks-build-tools": "^1.4.3"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pressbooks/aetna.git"
+    "url": "git+https://github.com/pressbooks/pressbooks-book.git",
+    "directory": "packages/aetna"
   },
   "keywords": [
     "styleguide",
