@@ -22,7 +22,7 @@ function delete_cached_contents() {
 /**
  * Enqueue styles and scripts.
  *
- * @return null
+ * @return void
  */
 function enqueue_assets() {
 	$assets = new Assets( 'pressbooks-book', 'theme' );
@@ -63,8 +63,6 @@ function enqueue_assets() {
 		'pressbooks/book',
 		'pressbooksBook',
 		[
-			'increase_label' => __( 'Increase Font Size', 'pressbooks-book' ),
-			'decrease_label' => __( 'Decrease Font Size', 'pressbooks-book' ),
 			'home_path' => ( is_subdomain_install() ) ? '/' : str_replace( network_home_url( '/' ), '/', home_url( '/' ) ),
 			'comparison_loading' => __( 'Comparison loading…', 'pressbooks-book' ),
 			'comparison_loaded' => __( 'Comparison loaded.', 'pressbooks-book' ),
@@ -170,7 +168,7 @@ function update_webbook_stylesheet() {
  *
  * @since 2.3.0
  *
- * @return null
+ * @return void
  */
 function theme_setup() {
 	load_theme_textdomain( 'pressbooks-book', get_template_directory() . '/languages' );
@@ -185,7 +183,7 @@ function theme_setup() {
  *
  * @since 2.3.0
  *
- * @return null
+ * @return void
  */
 function webbook_width() {
 	$options = get_option( 'pressbooks_theme_options_web' );
@@ -198,7 +196,7 @@ function webbook_width() {
  *
  * @since 2.3.0
  *
- * @return null
+ * @return void
  */
 function customizer_colors() {
 	echo \Pressbooks\Admin\Branding\get_customizer_colors();
@@ -212,7 +210,7 @@ function customizer_colors() {
  * @param string $_page The settings identifier, e.g. pressbooks_theme_options_web
  * @param string $_section The settings section identifier, e.g. web_options_section
  *
- * @return null
+ * @return void
  */
 function add_lightbox_setting( $_page, $_section ) {
 	add_settings_field(
@@ -234,7 +232,7 @@ function add_lightbox_setting( $_page, $_section ) {
  *
  * @param array $args The arguments for the field.
  *
- * @return null
+ * @return void
  */
 function render_lightbox_setting_field( $args ) {
 	unset( $args['label_for'], $args['class'] );
@@ -255,7 +253,7 @@ function render_lightbox_setting_field( $args ) {
  *
  * @since 2.8.0
  *
- * @return null
+ * @return void
  */
 function text_diff() {
 	if ( check_ajax_referer( 'text_diff_nonce', 'security' ) ) {
@@ -267,3 +265,80 @@ function text_diff() {
 	}
 	wp_send_json_error();
 }
+
+
+/**
+ * Suppress Media Attachment pages. This code redirects bots, unprivileged users, away from the attachment page.
+ *
+ * Files used in open textbooks are openly licensed images where usage requires proper attribution. Images may receive attribution in the webbook, but this attribution does not
+ * currently display on the standalone media attachment page. This can be problem.
+ *
+ * @since 2.8.13
+ */
+function redirect_attachment_page() {
+	if ( is_attachment() && ! current_user_can( 'upload_files' ) ) {
+		global $post;
+		if ( $post && $post->post_parent ) {
+			\Pressbooks\Redirect\location( esc_url( get_permalink( $post->post_parent ) ) );
+		} else {
+			\Pressbooks\Redirect\location( esc_url( home_url( '/' ) ) );
+		}
+	}
+}
+
+/**
+ * Enqueue bootstrap assents for H5P listing page
+ *
+ * @since 2.9.2
+ */
+function enqueue_h5p_listing_bootstrap_files( $page = '' ) {
+	$slug = 'h5p-listing';
+
+	if ( is_page( $slug ) || $slug === $page ) {
+		wp_enqueue_style( 'bootstrap-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', false, null );
+	}
+}
+
+/**
+ * Add H5P listing page
+ * Fire on the plugin initialization.
+ *
+ * @since 2.9.2
+ */
+function register_h5p_listing_page() {
+	global $wpdb;
+
+	$post_name = 'h5p-listing';
+	$post_title = __( 'H5P listing', 'pressbooks' );
+	$post_type = 'page';
+	$user_id = 1;
+
+	$data = [
+		'post_title' => $post_title,
+		'post_name' => $post_name,
+		'post_type' => $post_type,
+		'post_status' => 'publish',
+		'comment_status' => 'closed',
+		'ping_status' => 'closed',
+		'post_content' => '<!-- Here be dragons. -->',
+		'post_author' => $user_id,
+		'tags_input' => __( 'Default Data', 'pressbooks' ),
+	];
+
+	$exists = $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", [
+				$post_title,
+				$post_type,
+				$post_name,
+			]
+		)
+	);
+
+	if ( empty( $exists ) ) {
+		return wp_insert_post( $data, true );
+	}
+
+	return false;
+}
+

@@ -1,6 +1,6 @@
-dist: xenial
+dist: bionic
 services:
-  - mysql
+- mysql
 language: php
 sudo: required
 notifications:
@@ -17,13 +17,13 @@ branches:
 php:
 - 7.1
 - 7.2
-- nightly
+- 7.3
 env:
-- WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="8"
+- WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="10"
 matrix:
   fast_finish: true
   allow_failures:
-    - php: nightly
+  - php: nightly
 cache:
   apt: true
   directories:
@@ -39,11 +39,16 @@ install:
 - npm run bootstrap
 - composer install
 before_script:
-- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]] && php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
+- if php -v | grep -q 'Xdebug'; then phpenv config-rm xdebug.ini; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then pecl install pcov; fi
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script:
+- npm run install-build-tools
 - npm run test
-- composer test
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then composer require pcov/clobber; vendor/bin/pcov clobber; vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.3" ]]; then vendor/bin/phpunit --configuration phpunit.xml; fi
+- composer standards
+- lerna run install-build-tools
 - lerna run test
 after_success:
 - bash <(curl -s https://codecov.io/bash)
@@ -61,8 +66,7 @@ before_deploy:
 deploy:
   provider: releases
   skip_cleanup: true
-  api_key:
-    secure: XdchVIQYOB87JkkIdkIfhQUeU6jkATDaAf2MypPNoiSJKmShVyWRxXehl0b8ieZqz8WP0wciZhDXfRSufbBIxeNy+nXh7dSn0L3BMOv7Up+/lYTmBIQUtXJM6UJV1CBALgcmO4K0vFVnUQzEi1TbTQK62QUgfTJ1sQBAKB7Eg7WMhgn3sSVhV0pADRJshsOTsuVMiZ3DuDnWQ3RzGjC0deIlKCr/GO4+R6W5giR7+05WPZOB9o/+ugD2ZbeblBJIk8kt6ZcyQBbhGv1cCEoSPsyXg4B7vA15jZdabDFkMu0ebbnpxgMWCuh2PReoc7jaefyR5/c+Le5mSelFkY/wEB92VBO2TcjgEzXbf5cx7AxWaI9AFyDf7XUrqept/0xXdmpyOzgg6J6SNcOoc9rs6P24q2RGYUCTUGcynd+wTzlsWWpL1pi/ZG2A3mvHaPfCltvyGgXxTBWCI3mTClEebu+rg0GED1LDGKlwlop4wFVvX+5KzBfuo5buULIouud1deav63xBq9Td7HGcAH9N3zwEOaNjTDCc/cw9ZgzjTcOC4sbyLLeFJ6xHpONd7HtvstibSlu5aHuDd6hRD3Kgzs11JUzXMwgo3jiCWTfAZ25lDisEVmIqYS+Ea8lyCoY+BLfDcPlEeyhOtlXfRT4n2xtGPWZmgbndvtOMXDXuDds=
+  api_key: $GITHUB_ACCESS_TOKEN
   file: pressbooks-book-$TRAVIS_TAG.zip
   on:
     tags: true

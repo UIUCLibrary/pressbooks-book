@@ -49,6 +49,8 @@ foreach ( $includes as $include ) {
 }
 require get_template_directory() . '/inc/intervention.php';
 
+add_action( 'init', '\PressbooksBook\Actions\register_h5p_listing_page' );
+add_action( 'wp_enqueue_scripts', '\PressbooksBook\Actions\enqueue_h5p_listing_bootstrap_files' );
 add_action( 'pb_cache_delete', '\PressbooksBook\Actions\delete_cached_contents' );
 add_action( 'wp_enqueue_scripts', '\PressbooksBook\Actions\enqueue_assets' );
 add_action( 'wp_head', '\Pressbooks\Metadata\add_json_ld_metadata' );
@@ -69,6 +71,7 @@ add_action( 'wp_head', '\PressbooksBook\Actions\webbook_width' );
 add_filter( 'the_title', 'PressbooksBook\Filters\add_private_to_title', 10, 2 );
 add_action( 'pb_theme_options_web_add_settings_fields', '\PressbooksBook\Actions\add_lightbox_setting', 10, 2 );
 add_filter( 'pb_theme_options_web_booleans', '\PressbooksBook\Filters\add_lightbox_to_settings' );
+add_action( 'template_redirect', '\PressbooksBook\Actions\redirect_attachment_page' );
 
 if ( is_admin() ) {
 	add_action( 'wp_ajax_text_diff', '\PressbooksBook\Actions\text_diff' );

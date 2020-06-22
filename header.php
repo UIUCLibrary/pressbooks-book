@@ -75,6 +75,30 @@ if ( \PressbooksBook\Helpers\social_media_enabled() ) {
 
 	<header class="header" role="banner">
 		<div class="header__inside">
+			<div class="header__brand">
+				<a aria-label="<?php echo get_bloginfo( 'name', 'display' ); ?>" href="<?php echo network_home_url(); ?>">
+					<?php
+					$root_id = get_network()->site_id;
+					if ( has_custom_logo( $root_id ) ) {
+						?>
+						<?php
+						switch_to_blog( $root_id );
+						$custom_logo_id = get_theme_mod( 'custom_logo' );
+						printf(
+							'<img class="header__logo--img" src="%1$s" srcset="%2$s" alt="%3$s" />',
+							wp_get_attachment_image_src( $custom_logo_id, 'logo' )[0],
+							wp_get_attachment_image_srcset( $custom_logo_id, 'large' ),
+							/* translators: %s: name of network */
+							sprintf( __( 'Logo for %s', 'pressbooks-book' ), get_bloginfo( 'name', 'display' ) )
+						);
+						restore_current_blog();
+						?>
+					<?php } else { ?>
+					<svg class="header__logo--svg" aria-role="img">
+						<use href="#logo-pressbooks" />
+					</svg><?php } ?>
+				</a>
+			</div>
 			<div class="header__nav">
 				<a class="header__nav-icon js-header-nav-toggle" href="#navigation"><?php _e( 'Toggle Menu', 'pressbooks-book' ); ?><span class="header__nav-icon__icon"></span></a>
 				<nav class="js-header-nav" id="navigation">
@@ -89,7 +113,7 @@ if ( \PressbooksBook\Helpers\social_media_enabled() ) {
 				<nav class="reading-header__inside">
 					<?php if ( is_single() ) { ?>
 					<div class="reading-header__toc dropdown">
-						<h3 class="reading-header__toc__title"><?php _e( 'Contents', 'pressbooks-book' ); ?></h3>
+						<div class="reading-header__toc__title"><?php _e( 'Contents', 'pressbooks-book' ); ?></div>
 						<div class="block-reading-toc" hidden>
 							<?php include( locate_template( 'partials/content-toc.php' ) ); ?>
 						</div>

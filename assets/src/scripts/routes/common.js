@@ -6,47 +6,6 @@ export default {
 		document.body.classList.remove( 'no-js' );
 		document.body.classList.add( 'js' );
 
-		// Font Size handler
-		( function () {
-			const fontSizeButton = document.querySelector( '.a11y-fontsize' );
-
-			if ( Cookies.get( 'a11y-larger-fontsize' ) === '1' ) {
-				document.documentElement.classList.add( 'fontsize' );
-				fontSizeButton.setAttribute( 'aria-pressed', true );
-				fontSizeButton.textContent = pressbooksBook.decrease_label;
-			}
-
-			fontSizeButton.onclick = () => {
-				// Cast the state as a boolean
-				let pressed = fontSizeButton.getAttribute( 'aria-pressed' ) === 'true' || false;
-
-				// Switch the state
-				fontSizeButton.setAttribute( 'aria-pressed', ! pressed );
-
-				if ( ! pressed ) {
-					document.documentElement.classList.add( 'fontsize' );
-					fontSizeButton.setAttribute( 'title', pressbooksBook.decrease_label );
-					fontSizeButton.textContent = pressbooksBook.decrease_label;
-					document.querySelector( '.nav-reading' ).setAttribute( 'style', '' );
-					Cookies.set( 'a11y-larger-fontsize', '1', {
-						expires: 365,
-						path: pressbooksBook.home_path,
-					} );
-					return false;
-				} else {
-					document.documentElement.classList.remove( 'fontsize' );
-					fontSizeButton.setAttribute( 'title', pressbooksBook.increase_label );
-					fontSizeButton.textContent = pressbooksBook.increase_label;
-					document.querySelector( '.nav-reading' ).setAttribute( 'style', '' );
-					Cookies.set( 'a11y-larger-fontsize', '0', {
-						expires: 365,
-						path: pressbooksBook.home_path,
-					} );
-					return false;
-				}
-			};
-		} )();
-
 		( function () {
 			// document.addEventListener( 'DOMContentLoaded', function () {
 			// Sets a -1 tabindex to ALL sections for .focus()-ing
@@ -87,19 +46,19 @@ export default {
 		} )();
 
 		( function () {
-			// Get all the <h3> headings
+			// Get all the div.reading-header__toc__title elements
 			const headings = document.querySelectorAll(
-				'.dropdown > p, .dropdown > h3'
+				'.dropdown > p, .dropdown > div.reading-header__toc__title'
 			);
 
 			Array.prototype.forEach.call( headings, heading => {
-				// Give each <h3> a toggle button child
+				// Give each div.reading-header__toc__title a toggle button child
 				heading.innerHTML = `
 				<button type="button" aria-expanded="false">
 					${heading.innerHTML}
 					<svg role="img" class="arrow" width="13" height="8" viewBox="0 0 13 8" xmlns="http://www.w3.org/2000/svg"><path d="M6.255 8L0 0h12.51z" fill="currentColor" fill-rule="evenodd"></path></svg>
 				</button>
-			  `;
+				`;
 
 				// Collapse (hide) the content following the heading
 				let content = heading.nextElementSibling;
@@ -107,15 +66,62 @@ export default {
 
 				// Assign the button
 				let btn = heading.querySelector( 'button' );
+				let svg = heading.querySelector( 'button > .arrow' );
 
-				btn.onclick = () => {
+				let links = content.querySelectorAll( 'a' );
+
+				// Handle list items and events
+				Array.prototype.forEach.call( links, link => {
+					// Collapse the content menu if user tabs out.
+					link.onblur = e => {
+						if ( link === links[links.length - 1] && e.relatedTarget.parentNode.nodeName !== 'LI' ) {
+							btn.setAttribute( 'aria-expanded', false );
+							content.hidden = true;
+						}
+					};
+				} );
+
+				let $svgArrow = jQuery( 'button[aria-expanded] > svg' );
+				let $toggleButton = jQuery( 'button[aria-expanded]' );
+
+				jQuery( $toggleButton, $svgArrow ).click( function ( e ) {
 					// Cast the state as a boolean
 					let expanded = btn.getAttribute( 'aria-expanded' ) === 'true' || false;
 
-					// Switch the state
-					btn.setAttribute( 'aria-expanded', ! expanded );
-					// Switch the content's visibility
-					content.hidden = expanded;
+					if ( btn === e.target || svg === e.target ) {
+						// Switch the state
+						btn.setAttribute( 'aria-expanded', ! expanded );
+						// Switch the content's visibility
+						content.hidden = expanded;
+					} else {
+						btn.setAttribute( 'aria-expanded', false );
+						content.hidden = true;
+					}
+				} );
+
+				document.onclick = e => {
+					const downloadClass = 'book-header__cover__downloads';
+					const $target = jQuery( e.target );
+					const $downloadButton = jQuery( `.${downloadClass}` ).find( 'button' );
+
+					if ( $downloadButton.length === 0
+						|| $target.closest( 'div' ).hasClass( downloadClass )
+						|| $target.hasClass( 'dropdown-item' ) ) {
+						return;
+					}
+
+					if ( $downloadButton.attr( 'aria-expanded' ) === 'true' ) {
+						btn.setAttribute( 'aria-expanded', false );
+						content.hidden = true;
+					}
+				};
+
+				document.onkeydown = e => {
+					// Hide the content when 'Esc' key is pressed (and content is showing)
+					if ( e.which === 27 && ! content.hidden ) {
+						btn.setAttribute( 'aria-expanded', false );
+						content.hidden = true;
+					}
 				};
 			} );
 		} )();
@@ -166,6 +172,41 @@ export default {
 				};
 			} );
 		} )();
+
+		jQuery( $ => {
+			const $h5pActivities = $( '.h5p-row-item' );
+			const $activityContainer = $( '.h5p-activity-container' );
+			$activityContainer.hide();
+			$( '#h5p-show-hide' ).text( $( '#h5p-show-hide' ).attr( 'show-all-text' ) );
+			$( '.h5p-row-item' ).text( $( '.h5p-row-item' ).attr( 'show-activity-text' ) );
+
+			$h5pActivities.click( function () {
+				if ( $( this ).text() === $( this ).attr( 'show-activity-text' ) ) {
+					$activityContainer.hide();
+					$( this ).closest( 'tr' ).next( this ).show( 'slow' );
+					$( this ).text( $( this ).attr( 'hide-activity-text' ) );
+					window.dispatchEvent( new Event( 'resize' ) );
+				} else {
+					$( this ).closest( 'tr' ).next( this ).hide();
+					$( this ).text( $( this ).attr( 'show-activity-text' ) );
+				}
+			} );
+
+			$( '#h5p-show-hide' ).click( function () {
+				if ( $( this ).text() === $( this ).attr( 'show-all-text' ) ) {
+					$activityContainer.show();
+					$( this ).text( $( this ).attr( 'hide-all-text' ) );
+					$( '.h5p-row-item' ).text( $( '.h5p-row-item' ).attr( 'hide-activity-text' ) );
+					window.dispatchEvent( new Event( 'resize' ) );
+				} else {
+					$activityContainer.hide();
+					$( this ).text( $( this ).attr( 'show-all-text' ) );
+					$( '.h5p-row-item' ).text( $( '.h5p-row-item' ).attr( 'show-activity-text' ) );
+				}
+			} );
+
+		} );
+
 	},
 	finalize() {
 		// JavaScript to be fired on all pages, after page specific JS is fired
