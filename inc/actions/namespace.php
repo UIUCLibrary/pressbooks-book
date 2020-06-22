@@ -34,6 +34,7 @@ function enqueue_assets() {
 		wp_dequeue_style( 'wp-block-library' );
 	}
 	wp_enqueue_style( 'book/book', $assets->getPath( 'styles/book.css' ), false, null );
+        wp_enqueue_style( 'book/book', $assets->getPath( 'styles/iopn_header.css' ), false, null );
 	wp_enqueue_style( 'book/webfonts', 'https://fonts.googleapis.com/css?family=Inconsolata|Karla:400,700|Spectral:400,700', false, null );
 	if ( social_media_enabled() ) {
 		wp_enqueue_script( 'sharer', $assets->getPath( 'scripts/sharer.js' ) );
