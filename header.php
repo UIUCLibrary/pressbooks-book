@@ -17,7 +17,16 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" /><?php // TODO ?>
 	<?php wp_head(); ?>
 </head>
-	
+<div class="iopn_header_pb">
+                                <img usemap="#lib-shared-header-wordmark-online__map__small" src="https://iopn.library.illinois.edu/pressbooks/clemenceaumonet/wp-content/themes/pressbooks-book/dist/images/library">
+                                <map name="lib-shared-header-wordmark-online__map__small">
+                                        <area shape="rect" coords="0,0,15,20" href="https://illinois.edu" alt="Block I">
+                                        <area shape="rect" coords="25,0,200,20" href="https://www.library.illinois.edu" alt="Illinois Library">
+                                </map>
+                <a id="iopn_mark" href="https://iopn.library.illinois.edu">
+                        <img src="https://iopn.library.illinois.edu/pressbooks/clemenceaumonet/wp-content/themes/pressbooks-book/dist/images/iopn" alt="Illinois Open Publishing Network">
+                </a>
+        </div>	
 <?php
 if ( is_front_page() ) {
 	$schema = 'itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor image inLanguage keywords publisher" ';
