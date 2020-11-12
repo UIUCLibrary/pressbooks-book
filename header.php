@@ -17,7 +17,17 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" /><?php // TODO ?>
 	<?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+	
+<?php
+if ( is_front_page() ) {
+	$schema = 'itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor image inLanguage keywords publisher" ';
+} elseif ( is_single() ) {
+	$schema = 'itemscope itemtype="http://bib.schema.org/Chapter" itemref="about copyrightHolder copyrightYear inLanguage publisher" ';
+} else {
+	$schema = '';
+}
+?>
+<body <?php body_class(); ?> <?php echo $schema; ?>>
 <svg style="position: absolute; width: 0; height: 0;" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
 	<defs>
 		<symbol id="icon-pressbooks" fill="currentColor" viewBox="0 0 45 44">
@@ -63,6 +73,14 @@ if ( \PressbooksBook\Helpers\social_media_enabled() ) {
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'pressbooks-book' ); ?></a>
 	<?php get_template_part( 'partials/content', 'accessibility-toolbar' ); ?>
 
+	<div class="site-brand">
+		<div id="ui-library" class="site-logo">
+			<a href="https://www.library.illinois.edu/" title="University Library"><img src="<?php bloginfo( 'template_directory' ); ?>/dist/images/ui_lib_white_comp_trans.png" class="img-logo" alt="[Block I] ILLINOIS University Library"></a>
+		</div>
+		<div id="iopn" class="site-logo">
+			<a href="https://iopn.library.illinois.edu/" title="Illinois Open Publishing Network"><img src="<?php bloginfo( 'template_directory' ); ?>/dist/images/iopn_white_comp_trans.png" class="img-logo" alt="IOPN" title="Illinois Open Publishing Network"></a>
+		</div>
+	</div>
 	<header class="header" role="banner">
 		<div class="header__inside">
 			<div class="header__brand">
