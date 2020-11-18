@@ -10,10 +10,12 @@ use function \Pressbooks\Image\attachment_id_from_url;
 		<h1 class="section__title book-header__title">
 			<span class="screen-reader-text"><?php _e( 'Book Title', 'pressbooks-book' ); ?>: </span><?php bloginfo( 'name' ); ?>
 		</h1>
-		<?php if ( ! empty( $book_information['pb_subtitle'] ) ) : ?>
+		<?php if ( ! empty( $book_information['pb_subtitle'] ) ) { ?>
 			<p class="book-header__subtitle"><span class="screen-reader-text"><?php _e( 'Subtitle', 'pressbooks-book' ); ?>: </span><?php echo $book_information['pb_subtitle']; ?></p>
-		<?php endif; ?>
-		<?php if ( ! empty( $book_information['pb_authors'] ) ) { ?>
+		<?php } ?>
+		<?php if ( ! empty( $book_information['pb_credit_override'] ) ) { ?>
+			<p class="book-header__author"><span class="screen-reader-text"><?php echo _e( 'Attribution', 'pressbooks-book' ); ?>: </span><?php echo $book_information['pb_credit_override']; ?></p>
+		<?php } elseif ( ! empty( $book_information['pb_authors'] ) ) { ?>
 			<p class="book-header__author"><span class="screen-reader-text"><?php echo translate_nooped_plural( _n_noop( 'Author', 'Authors', 'pressbooks-book' ), \PressbooksBook\Helpers\count_authors( $book_information['pb_authors'] ), 'pressbooks-book' ); ?>: </span><?php echo $book_information['pb_authors']; ?></p>
 		<?php } ?>
 		<div class="book-header__cover">
