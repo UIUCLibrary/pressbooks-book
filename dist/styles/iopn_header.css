@@ -1,0 +1,51 @@
+/*!
+ *Headers for IOPN 
+  */
+ /*Does not apply to pressbooks*/ 
+.iopn_header_common {
+ 	background-color: #192947;
+ 	padding-left: 15px;
+ 	padding-top: 5px;
+ 	width: 100vw; 
+	margin-left: calc(-1 * ((100vw - 100%) / 2))
+}
+
+
+.iopn_header_scalar {
+ 	padding-bottom: 10px; 
+ }
+
+ /*IOPN mark image*/ 
+#iopn_mark {
+ 	margin-left: 20px;
+ }
+
+/*so that Scalar collapses the native header/nav and the iopn header on scroll*/
+@media (min-width: 768px){
+        #scalarheader.short{
+                transform : translatey(-8rem);
+                -webkit-transform : translatey(-8rem);
+                -moz-transform : translatey(-8rem);
+        }
+}
+
+/*placeholders for anything needed behond common*/
+.iopn_header_omekas_s {
+	}
+
+.ionp_header_omp {
+	
+}
+
+
+.iopn_header_ojs {
+
+}
+
+.iopn_header_pb {
+	background-color: #192947;
+	float: left; 
+	padding: 5px;
+	text-decoration: none;
+
+}
