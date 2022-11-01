@@ -269,11 +269,11 @@ function text_diff() {
  *
  * Files used in open textbooks are openly licensed images where usage requires proper attribution. Images may receive attribution in the webbook, but this attribution does not
  * currently display on the standalone media attachment page. This can be problem.
- *
+ * Note: Disabling this redirect while working on https://github.com/pressbooks/pressbooks-book/issues/1043. We are using the media page to describe complex images.
  * @since 2.8.13
  */
 function redirect_attachment_page() {
-	if ( is_attachment() && ! current_user_can( 'upload_files' ) ) {
+	if ( is_attachment() && ! current_user_can( 'upload_files' ) && false ) {
 		global $post;
 		if ( $post && $post->post_parent ) {
 			\Pressbooks\Redirect\location( esc_url( get_permalink( $post->post_parent ) ) );
