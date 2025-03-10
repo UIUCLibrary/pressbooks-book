@@ -7,7 +7,7 @@ global $multipage;
 ?>
 
 
-<footer class="footer
+<footer class="footer-library container
 <?php
 if ( is_front_page() ) :
 	echo ' footer--home';
@@ -50,7 +50,7 @@ if ( $contact_link ) {
 }
 
 ?>
-"<footer class="footer-library container" role="contentinfo">
+" role="contentinfo">
 	<div class="row">
 		<div class="column footer-library_right" style="text: white">
 			<p>ABOUT</p>
