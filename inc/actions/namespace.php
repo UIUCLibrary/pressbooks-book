@@ -271,7 +271,8 @@ function text_diff() {
  * @since 2.8.13
  */
 function redirect_attachment_page() {
-	if ( is_attachment() && ! current_user_can( 'upload_files' ) ) {
+//	Note: Disabling this redirect while working on https://github.com/pressbooks/pressbooks-book/issues/1043. We are using the media page to describe complex images.
+	if ( is_attachment() && ! current_user_can( 'upload_files' ) && false ) {
 		global $post;
 		if ( $post && $post->post_parent ) {
 			\Pressbooks\Redirect\location( esc_url( get_permalink( $post->post_parent ) ) );
