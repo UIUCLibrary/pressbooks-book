@@ -65,7 +65,7 @@
 			<?php } ?>
 			<div class="block-info__subsection block-info__license">
 				<h3 class="block__subtitle"><?php _e( 'License', 'pressbooks-book' ); ?></h3>
-				<?php echo \PressbooksBook\Helpers\copyright_license( false ); ?>
+				<?php echo \PressbooksBook\Helpers\copyright_license(); ?>
 			</div>
 			<?php if ( ! empty( $book_information['pb_primary_subject'] ) ) { ?>
 			<div class="block-info__subsection block-info__subject">
