@@ -104,9 +104,21 @@ use function \Pressbooks\Image\attachment_id_from_url;
 		<?php global $first_chapter; ?>
 		<div class="book-header__license">
 			<span class="screen-reader-text"><?php _e( 'License', 'pressbooks-book' ); ?>: </span>
-			<?php $license = ( isset( $book_information['pb_book_license'] ) ) ? $book_information['pb_book_license'] : 'all-rights-reserved'; ?>
+			<?php
+			//if a custom license is used, don't try to craft a shorthand license as it may contradict the user's terms
+			$license = '';
+			if ( isset( $book_information['pb_book_license'] ) ) {
+				if ( ! isset( $book_information['pb_custom_copyright'] ) ) {
+					$license = $book_information['pb_book_license'];
+				}
+			} else {
+				$license = 'all-rights-reserved';
+			}
+			?>
+			<?php if ( ! isset($book_information['pb_custom_copyright'])):?>
 			<div class="book-header__license__icons license-icons"><?php echo \PressbooksBook\Helpers\license_to_icons( $license ); ?></div>
 			<span class="book-header__license__text license-text"><?php echo \PressbooksBook\Helpers\license_to_text( $license ); ?></span>
+			<?php endif;?>
 		</div>
 		<div class="book-header__cta">
 			<?php if ( pb_get_first_post_id() ) { ?>
