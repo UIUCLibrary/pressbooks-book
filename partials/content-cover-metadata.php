@@ -10,6 +10,11 @@
 				</div>
 				<?php
 				$metakeys = \PressbooksBook\Helpers\get_metakeys();
+
+				//display custom copyright in license setion if set
+				if ( $book_information['pb_custom_copyright'] ){
+					$book_information['pb_book_license'] = true;
+				}
 				foreach ( $metakeys as $key => $val ) {
 					if ( isset( $book_information[ $key ] ) && ! empty( $book_information[ $key ] ) ) {
 						?>
