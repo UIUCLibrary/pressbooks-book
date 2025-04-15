@@ -11,8 +11,8 @@
 				<?php
 				$metakeys = \PressbooksBook\Helpers\get_metakeys();
 
-				//display custom copyright in license setion if set
-				if ( $book_information['pb_custom_copyright'] ){
+				//display custom copyright in license section, if set
+				if ( isset( $book_information['pb_custom_copyright'] ) ) {
 					$book_information['pb_book_license'] = true;
 				}
 				foreach ( $metakeys as $key => $val ) {
