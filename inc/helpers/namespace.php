@@ -689,18 +689,8 @@ function count_items( $value ): int {
 function copyright_license( $show_custom_copyright = true ) {
 	$metadata = \Pressbooks\Book::getBookInformation();
 
-	if ( empty( $metadata['pb_book_license'] ) ) {
-		$all_rights_reserved = true;
-	} elseif ( $metadata['pb_book_license'] === 'all-rights-reserved' ) {
-		$all_rights_reserved = true;
-	} else {
-		$all_rights_reserved = false;
-	}
-	if ( ! empty( $metadata['pb_custom_copyright'] ) && $show_custom_copyright ) {
-		$has_custom_copyright = true;
-	} else {
-		$has_custom_copyright = false;
-	}
+	$all_rights_reserved = (empty($metadata['pb_book_license']) || $metadata['pb_book_license'] === 'all-rights-reserved');
+	$has_custom_copyright = ( ! empty( $metadata['pb_custom_copyright'] ) );
 
 	// Custom Copyright must override All Rights Reserved
 	$html = '';
