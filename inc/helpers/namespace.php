@@ -692,10 +692,11 @@ function copyright_license( $show_custom_copyright = true ) {
 	$all_rights_reserved = (empty($metadata['pb_book_license']) || $metadata['pb_book_license'] === 'all-rights-reserved');
 	$has_custom_copyright = ( ! empty( $metadata['pb_custom_copyright'] ) );
 
+
 	// Custom Copyright must override All Rights Reserved
 	$html = '';
 	if ( ! $has_custom_copyright || ( $has_custom_copyright && ! $all_rights_reserved ) || ! $show_custom_copyright ) {
-		$html .= \PressbooksBook\Helpers\do_license( $metadata );
+		$html .= \PressbooksBook\Helpers\do_license( $metadata, $show_custom_copyright );
 	}
 	if ( $has_custom_copyright && $show_custom_copyright ) {
 		$html .= '<div class="license-attribution">' . $metadata['pb_custom_copyright'] . '</div>';
