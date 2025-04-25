@@ -717,7 +717,7 @@ function do_license( $metadata, $show_custom_copyright ) {
 	$id = $post->ID;
 	try {
 		$licensing = new \Pressbooks\Licensing();
-		return $licensing->doLicense( $metadata, $id, $show_custom_copyright );
+		return $licensing->doLicense( $metadata, $id, '', $show_custom_copyright );
 	} catch ( \Exception $e ) {
 		error_log( $e->getMessage() ); // @codingStandardsIgnoreLine
 	}
