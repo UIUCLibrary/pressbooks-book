@@ -712,12 +712,12 @@ function copyright_license( $show_custom_copyright = true ) {
  *
  * @return string
  */
-function do_license( $metadata ) {
+function do_license( $metadata, $show_custom_copyright ) {
 	global $post;
 	$id = $post->ID;
 	try {
 		$licensing = new \Pressbooks\Licensing();
-		return $licensing->doLicense( $metadata, $id );
+		return $licensing->doLicense( $metadata, $id, $show_custom_copyright );
 	} catch ( \Exception $e ) {
 		error_log( $e->getMessage() ); // @codingStandardsIgnoreLine
 	}
