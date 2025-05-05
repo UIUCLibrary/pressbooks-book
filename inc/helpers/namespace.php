@@ -688,8 +688,7 @@ function count_items( $value ): int {
  */
 function copyright_license( $show_custom_copyright = true ) {
 	$metadata = \Pressbooks\Book::getBookInformation();
-
-	return \PressbooksBook\Helpers\do_license( $metadata, $show_custom_copyright );
+  return \PressbooksBook\Helpers\do_license( $metadata, $show_custom_copyright );
 }
 
 /**
