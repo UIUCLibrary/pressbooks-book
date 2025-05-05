@@ -110,19 +110,22 @@ function license_to_icons( $license ) {
 	if ( ! $license ) {
 		return '';
 	}
+
 	$output = '';
+	$svg_tag = '<svg class="icon" style="fill: currentColor" role="presentation"><use href="#%s" /></svg>';
+
 	if ( strpos( $license, 'cc' ) !== false && $license !== 'cc-zero' ) {
 		$parts = explode( '-', $license );
 		foreach ( $parts as $part ) {
 			if ( $part !== 'cc' ) {
 				$part = 'cc-' . $part;
 			}
-			$output .= sprintf( '<svg class="icon" style="fill: currentColor"><use href="#%s" /></svg>', $part );
+			$output .= sprintf( $svg_tag, $part );
 		}
 	} elseif ( $license === 'cc-zero' ) {
-		$output .= '<svg class="icon" style="fill: currentColor"><use href="#cc-zero" /></svg>';
+		$output .= sprintf( $svg_tag, 'cc-zero' );
 	} elseif ( $license === 'public-domain' ) {
-		$output .= '<svg class="icon" style="fill: currentColor"><use href="#cc-pd" /></svg>';
+		$output .= sprintf( $svg_tag, 'cc-pd' );
 	} elseif ( $license === 'all-rights-reserved' ) {
 		return '';
 	}
@@ -685,20 +688,7 @@ function count_items( $value ): int {
  */
 function copyright_license( $show_custom_copyright = true ) {
 	$metadata = \Pressbooks\Book::getBookInformation();
-
-	$all_rights_reserved = (empty($metadata['pb_book_license']) || $metadata['pb_book_license'] === 'all-rights-reserved');
-	$has_custom_copyright = ( ! empty( $metadata['pb_custom_copyright'] ) );
-
-	// Custom Copyright must override All Rights Reserved
-	$html = '';
-	if ( ! $has_custom_copyright || ( $has_custom_copyright && ! $all_rights_reserved ) || ! $show_custom_copyright ) {
-		$html .= \PressbooksBook\Helpers\do_license( $metadata );
-	}
-	if ( $has_custom_copyright && $show_custom_copyright ) {
-		$html .= '<div class="license-attribution">' . $metadata['pb_custom_copyright'] . '</div>';
-	}
-
-	return $html;
+  return \PressbooksBook\Helpers\do_license( $metadata, $show_custom_copyright );
 }
 
 /**
@@ -710,12 +700,12 @@ function copyright_license( $show_custom_copyright = true ) {
  *
  * @return string
  */
-function do_license( $metadata ) {
+function do_license( $metadata, $show_custom_copyright ) {
 	global $post;
 	$id = $post->ID;
 	try {
 		$licensing = new \Pressbooks\Licensing();
-		return $licensing->doLicense( $metadata, $id );
+		return $licensing->doLicense( $metadata, $id, '', $show_custom_copyright );
 	} catch ( \Exception $e ) {
 		error_log( $e->getMessage() ); // @codingStandardsIgnoreLine
 	}

@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.8.6](https://github.com/pressbooks/buckram/compare/v1.8.5...v1.8.6) (2025-03-11)
+
+
+### Bug Fixes
+
+* inherit line-height ([#376](https://github.com/pressbooks/buckram/issues/376)) ([a2fd44c](https://github.com/pressbooks/buckram/commit/a2fd44c0a02ba17ad78fb349bf5cf57d707b022b))
+
+## [1.8.5](https://github.com/pressbooks/buckram/compare/v1.8.4...v1.8.5) (2025-03-04)
+
+
+### Bug Fixes
+
+* allow glossary terms to be copy/pasted by Firefox users ([#373](https://github.com/pressbooks/buckram/issues/373)) ([a19fc78](https://github.com/pressbooks/buckram/commit/a19fc78d9d7bc1d8058d3976146f4f3a0ce4978e))
+* nested paragraphs font size in tables ([#375](https://github.com/pressbooks/buckram/issues/375)) ([39bd9ad](https://github.com/pressbooks/buckram/commit/39bd9ad339ae84a96ef7e11413cf60ce6a89ab8a))
+
 ## [1.8.4](https://github.com/pressbooks/buckram/compare/v1.8.3...v1.8.4) (2024-10-21)
 
 
