@@ -6,7 +6,6 @@
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/pressbooks/pressbooks-book.svg)](https://packagist.org/packages/pressbooks/pressbooks-book)
 
 [![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks-book.svg)](https://packagist.org/packages/pressbooks/pressbooks-book)
-[![Build Status](https://travis-ci.org/pressbooks/pressbooks-book.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks-book)
 [![codecov](https://codecov.io/gh/pressbooks/pressbooks-book/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks-book/branch/dev)
 [![Translate McLuhan](https://img.shields.io/badge/dynamic/json.svg?label=translated&url=https%3A%2F%2Ftenpercent.now.sh%2F%3Forganization%3Dpressbooks%26project%3Dpressbooks-book&query=%24.status&colorB=e05d44&suffix=%25)](https://www.transifex.com/pressbooks/pressbooks-book/translate/)
 
@@ -16,8 +15,8 @@ This theme is named after Canadian media theorist Marshall McLuhan, who coined t
 ## Requirements
 
 * PHP >= 7.4
-* WordPress >= 5.9.3
-* Pressbooks >= 5.34.1
+* WordPress >= 6.0.2
+* Pressbooks >= 6.1.0
 
 ## Installation
 
@@ -41,7 +40,7 @@ Then, from the GitHub Updater interface, navigate to the "Install Theme" tab. En
 
 ## Changelog
 
-### 2.18.1
+### 2.24.0
 
-* See: https://github.com/pressbooks/pressbooks-book/releases/tag/2.18.1
+* See: https://github.com/pressbooks/pressbooks-book/releases/tag/2.24.0
 * Full release history available at: https://github.com/pressbooks/pressbooks-book/releases

@@ -19,9 +19,12 @@ use function \PressbooksBook\Helpers\license_to_icons;
 use function \PressbooksBook\Helpers\license_to_text;
 use function \PressbooksBook\Helpers\share_icons;
 use function \PressbooksBook\Helpers\social_media_enabled;
+use function \PressbooksBook\Helpers\should_cta_banner_be_displayed;
 
 /**
  * Helpers test case.
+ *
+ * @group helpers
  */
 class HelpersTest extends WP_UnitTestCase {
 
@@ -81,20 +84,20 @@ class HelpersTest extends WP_UnitTestCase {
 	}
 
 	function test_get_source_book() {
-		$output = get_source_book( 'https://book.pressbooks.com' );
-		$this->assertEquals( 'https://book.pressbooks.com', $output );
+		$output = get_source_book( 'https://pressbooks.pub/book' );
+		$this->assertEquals( 'https://pressbooks.pub/book', $output );
 	}
 
 	function test_get_source_book_url() {
-		$output = get_source_book_url( 'https://book.pressbooks.com' );
-		$this->assertEquals( 'https://book.pressbooks.com', $output );
+		$output = get_source_book_url( 'https://pressbooks.pub/book' );
+		$this->assertEquals( 'https://pressbooks.pub/book', $output );
 	}
 
 	function test_get_source_book_meta() {
 		$output = get_source_book_toc( 'garbage/' );
 		$this->assertFalse( $output );
 
-		$output = get_source_book_meta( 'https://book.pressbooks.com' );
+		$output = get_source_book_meta( 'https://pressbooks.pub/book' );
 		$this->assertArrayHasKey( 'name', $output );
 		$this->assertEquals( "Book: A Futurist's Manifesto", $output['name'] );
 	}
@@ -103,7 +106,7 @@ class HelpersTest extends WP_UnitTestCase {
 		$results = get_source_book_toc( 'garbage/' );
 		$this->assertFalse( $results );
 
-		$results = get_source_book_toc( 'https://book.pressbooks.com/' );
+		$results = get_source_book_toc( 'https://pressbooks.pub/book/' );
 		$this->assertTrue( is_array( $results ) );
 		$this->assertNotEmpty( $results );
 	}
@@ -236,5 +239,16 @@ class HelpersTest extends WP_UnitTestCase {
 		$this->assertEquals( '1', $data['total'] );
 		$this->assertEquals( 1, count( $data['activities'] ) );
 		$this->assertEquals( $_GET['h5p_id'], $data['activities'][0]['ID'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_test_should_cta_banner_be_displayed_method(): void {
+		update_site_option( 'pressbooks_display_cta_banner', '1' );
+		$this->assertTrue( should_cta_banner_be_displayed() );
+
+		update_site_option( 'pressbooks_display_cta_banner', '0' );
+		$this->assertFalse( should_cta_banner_be_displayed() );
 	}
 }
