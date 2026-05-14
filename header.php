@@ -61,7 +61,16 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'pressbooks-book' ); ?></a>
 	<?php get_template_part( 'partials/content', 'accessibility-toolbar' ); ?>
-
+	<div class="iopn_header_pb">
+		<img usemap="#lib-shared-header-wordmark-online__map__small" src="<?php echo get_template_directory_uri(); ?>/dist/images/library">
+		<map name="lib-shared-header-wordmark-online__map__small">
+			<area shape="rect" coords="0,0,15,20" href="https://illinois.edu" alt="Block I">
+			<area shape="rect" coords="25,0,200,20" href="https://www.library.illinois.edu" alt="Illinois Library">
+		</map>
+		<a id="iopn_mark" href="https://iopn.library.illinois.edu">
+			<img src="<?php echo get_template_directory_uri(); ?>/dist/images/iopn" alt="Illinois Open Publishing Network">
+		</a>
+	</div>
 	<header class="header" role="banner">
 		<div class="header__inside">
 			<div class="header__brand">
@@ -97,7 +106,7 @@
 				</a>
 			</div>
 			<div class="header__nav">
-				<a class="header__nav-icon js-header-nav-toggle" href="#navigation"><?php esc_html_e( 'Toggle Menu', 'pressbooks-book' ); ?><span class="header__nav-icon__icon"></span></a>
+				<button class="header__nav-icon js-header-nav-toggle" aria-expanded="false" aria-controls="navigation"><?php _e( 'Menu', 'pressbooks-aldine' ); ?><span class="header__nav-icon__icon"></span></button>
 				<nav aria-labelledby="primary-nav" class="js-header-nav" id="navigation">
 					<p id="primary-nav" class="screen-reader-text"><?php esc_html_e( 'Primary Navigation', 'pressbooks-book' ); ?></p>
 					<ul id="nav-primary-menu" class="nav--primary">
