@@ -543,6 +543,15 @@ function is_book_public() {
 }
 
 /**
+ * Determine if CTA banner should be displayed.
+ *
+ * @return bool
+ */
+function should_cta_banner_be_displayed() {
+	return get_site_option( 'pressbooks_display_cta_banner', '1' ) === '1';
+}
+
+/**
  * Template for comments and pingbacks.
  *
  * To override this walker in a child theme without modifying the comments template
@@ -697,14 +706,11 @@ function is_buckram() {
  */
 function get_h5p_activities( $per_page = 20 ) {
 	global $wpdb;
-	$cache_key = 'h5p_book_activities';
 
-	$page = isset( $_GET['hpage'] ) ? abs( (int) $_GET['hpage'] ) : 1;
-	if ( $page > 1 ) {
-		$offset = $page * $per_page - $per_page;
-	} else {
-		$offset = $page;
-	}
+	$page = abs( (int) ( $_GET['hpage'] ?? 1 ) );
+	$page = max( $page, 1 );
+
+	$offset = ( $page - 1 ) * $per_page;
 
 	$h5p_id = isset( $_GET['h5p_id'] ) ? abs( intval( $_GET['h5p_id'] ) ) : null;
 	if ( ! is_null( $h5p_id ) ) {
