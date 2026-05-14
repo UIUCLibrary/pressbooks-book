@@ -1,28 +1,21 @@
-name: Update POT file
+name: Update POT file 🌐
 
 on:
   push:
-    branches:
-    - dev
+    branches: [dev]
     paths:
-    - '**.php'
-    - '**.js'
+      - "**/*.php"
+      - "**/*.js"
   workflow_dispatch:
 
 jobs:
-  update-pot:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup PHP with tools
-      uses: shivammathur/setup-php@v2
+  jobs:
+    update-pot-file:
+      uses: pressbooks/reusable-workflows/.github/workflows/update-pot.yml@main
+      secrets: inherit
       with:
-        php-version: '7.4'
-        tools: composer, wp-cli/wp-cli-bundle
-    - name: Update POT file
-      run: wp i18n make-pot . languages/pressbooks-book.pot --domain=pressbooks-book --slug=pressbooks-book --package-name="McLuhan" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks-book/issues\"}"
-    - name: Commit updated POT file
-      uses: stefanzweifel/git-auto-commit-action@v4.15.3
-      with:
-        commit_message: 'chore(l10n): update languages/pressbooks-book.pot'
-        file_pattern: '*.pot'
+        domain: 'pressbooks-book'
+        slug: 'pressbooks-book'
+        package_name: 'McLuhan'
+        headers: '{"Report-Msgid-Bugs-To": "https://github.com/pressbooks/pressbooks-book/issues"}'
+        pull_request_number: ${{ github.event.pull_request.number }}

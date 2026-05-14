@@ -47,11 +47,11 @@ class HelpersTest extends WP_UnitTestCase {
 
 	function test_license_to_icons() {
 		$output = license_to_icons( 'cc-by' );
-		$this->assertEquals( '<svg class="icon" style="fill: currentColor"><use href="#cc" /></svg><svg class="icon" style="fill: currentColor"><use href="#cc-by" /></svg>', $output );
+		$this->assertEquals( '<svg class="icon" style="fill: currentColor" role="presentation"><use href="#cc" /></svg><svg class="icon" style="fill: currentColor" role="presentation"><use href="#cc-by" /></svg>', $output );
 		$output = license_to_icons( 'public-domain' );
-		$this->assertEquals( '<svg class="icon" style="fill: currentColor"><use href="#cc-pd" /></svg>', $output );
+		$this->assertEquals( '<svg class="icon" style="fill: currentColor" role="presentation"><use href="#cc-pd" /></svg>', $output );
 		$output = license_to_icons( 'cc-zero' );
-		$this->assertEquals( '<svg class="icon" style="fill: currentColor"><use href="#cc-zero" /></svg>', $output );
+		$this->assertEquals( '<svg class="icon" style="fill: currentColor" role="presentation"><use href="#cc-zero" /></svg>', $output );
 		$output = license_to_icons( 'all-rights-reserved' );
 		$this->assertEquals( '', $output );
 		$output = license_to_icons( 'foo' );
@@ -68,7 +68,16 @@ class HelpersTest extends WP_UnitTestCase {
 	}
 
 	function test_share_icons() {
-		$this->assertStringStartsWith( '<a class="sharer" data-sharer="twitter" data-title="Check out this great book on Pressbooks."', share_icons() );
+		update_option('pressbooks_theme_options_web', ['social_media_options' => [
+			'twitter',
+		]]);
+		$this->assertStringStartsWith( '<a class="sharer" data-sharer="twitter" data-title="Check out this great book published with Pressbooks."', share_icons() );
+		$this->assertStringNotContainsString( 'linkedin', share_icons() );
+		update_option('pressbooks_theme_options_web', ['social_media_options' => [
+			'twitter',
+			'linkedin',
+		]]);
+		$this->assertStringContainsString( '<a class="sharer" data-sharer="linkedin" data-title="Check out this great book published with Pressbooks."', share_icons() );
 	}
 
 	function test_display_menu() {

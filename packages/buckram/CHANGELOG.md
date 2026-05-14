@@ -1,5 +1,67 @@
 # Changelog
 
+## [1.8.6](https://github.com/pressbooks/buckram/compare/v1.8.5...v1.8.6) (2025-03-11)
+
+
+### Bug Fixes
+
+* inherit line-height ([#376](https://github.com/pressbooks/buckram/issues/376)) ([a2fd44c](https://github.com/pressbooks/buckram/commit/a2fd44c0a02ba17ad78fb349bf5cf57d707b022b))
+
+## [1.8.5](https://github.com/pressbooks/buckram/compare/v1.8.4...v1.8.5) (2025-03-04)
+
+
+### Bug Fixes
+
+* allow glossary terms to be copy/pasted by Firefox users ([#373](https://github.com/pressbooks/buckram/issues/373)) ([a19fc78](https://github.com/pressbooks/buckram/commit/a19fc78d9d7bc1d8058d3976146f4f3a0ce4978e))
+* nested paragraphs font size in tables ([#375](https://github.com/pressbooks/buckram/issues/375)) ([39bd9ad](https://github.com/pressbooks/buckram/commit/39bd9ad339ae84a96ef7e11413cf60ce6a89ab8a))
+
+## [1.8.4](https://github.com/pressbooks/buckram/compare/v1.8.3...v1.8.4) (2024-10-21)
+
+
+### Bug Fixes
+
+* mathjax class scope ([#367](https://github.com/pressbooks/buckram/issues/367)) ([711a842](https://github.com/pressbooks/buckram/commit/711a8428fd844ae79d0bcc27f0035de11d634c5f))
+
+## [1.8.3](https://github.com/pressbooks/buckram/compare/v1.8.2...v1.8.3) (2024-10-07)
+
+
+### Bug Fixes
+
+* mathjax footnote support ([#364](https://github.com/pressbooks/buckram/issues/364)) ([6560bf7](https://github.com/pressbooks/buckram/commit/6560bf7aa05b32b78bb4891398870e3bade3dadc))
+
+## [1.8.2](https://github.com/pressbooks/buckram/compare/v1.8.1...v1.8.2) (2023-07-16)
+
+
+### Bug Fixes
+
+* update release instructions ([#332](https://github.com/pressbooks/buckram/issues/332)) ([b60dda3](https://github.com/pressbooks/buckram/commit/b60dda36f6858f2bb55e4f536abdf1080194fac0))
+
+## [1.8.1](https://github.com/pressbooks/buckram/compare/v1.8.0...v1.8.1) (2023-01-04)
+
+
+### Bug Fixes
+
+* update gitignore to avoid publish config files ([71fb1ae](https://github.com/pressbooks/buckram/commit/71fb1aefcba5807d65cd674c5a7947e5e19bbe06))
+
+## [1.8.0](https://github.com/pressbooks/buckram/compare/v1.7.3...v1.8.0) (2023-01-03)
+
+
+### Features
+
+* make Buckram compatible with latest SCSSPHP ([#304](https://github.com/pressbooks/buckram/issues/304)) ([eb087ca](https://github.com/pressbooks/buckram/commit/eb087caf75ff026253904c64f8dbab335ec593f7))
+
+
+### Bug Fixes
+
+* unset content on blank pages instead of using an empty string ([#305](https://github.com/pressbooks/buckram/issues/305)) ([e9063fb](https://github.com/pressbooks/buckram/commit/e9063fbe89947173177369a4a293eba8bea5e6a6))
+
+## [1.7.3](https://github.com/pressbooks/buckram/compare/v1.7.2...v1.7.3) (2022-08-19)
+
+
+### Bug Fixes
+
+* bump version in buckram.scss ([781bca0](https://github.com/pressbooks/buckram/commit/781bca0e9dc8051c099757201d0f6bbafffe43a4))
+
 ## [1.7.2](https://github.com/pressbooks/buckram/compare/1.7.1...v1.7.2) (2022-08-11)
 
 

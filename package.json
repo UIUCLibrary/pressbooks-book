@@ -4,15 +4,15 @@
 	"author": "Pressbooks (Book Oven Inc.)",
 	"license": "GPL-3.0-or-later",
 	"engines": {
-		"node": ">= 14"
+		"node": ">= 18"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/pressbooks/pressbooks-book.git"
 	},
 	"dependencies": {
-		"aetna": "^1.0.0",
-		"buckram": "^1.7.2",
+		"aetna": "^1.0.5",
+		"buckram": "^1.8.6",
 		"details-element-polyfill": "^2.4.0",
 		"lity": "^2.4.0",
 		"sharer.js": "^0.5.1",
@@ -24,10 +24,10 @@
 		"recursive-copy-cli": "^1.0.20"
 	},
 	"scripts": {
-		"build": "mix",
+		"build": "mix --production",
 		"lint:scripts": "eslint \"assets/src/scripts/**/*.js\"",
 		"lint:styles": "stylelint \"assets/src/styles/**/*.scss\" \"assets/styles/**/*.scss\"",
-		"fix-styles": "stylelint \"assets/src/styles/**/*.scss\" \"assets/styles/**/*.scss\" --fix" ,
+		"fix-styles": "stylelint \"assets/src/styles/**/*.scss\" \"assets/styles/**/*.scss\" --fix",
 		"fix-scripts": "eslint \"assets/src/scripts/**/*.js\" --fix",
 		"lint": "run-s lint:*",
 		"production": "mix --production",

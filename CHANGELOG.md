@@ -1,0 +1,67 @@
+# Changelog
+
+## [2.26.10](https://github.com/pressbooks/pressbooks-book/compare/2.26.9...2.26.10) (2025-03-13)
+
+
+### Chores
+
+* bump buckram ([#1315](https://github.com/pressbooks/pressbooks-book/issues/1315)) ([b142d84](https://github.com/pressbooks/pressbooks-book/commit/b142d84b848a9b246f32d7458f07ecba7084003b))
+* bump bucram ([#1312](https://github.com/pressbooks/pressbooks-book/issues/1312)) ([4b416d0](https://github.com/pressbooks/pressbooks-book/commit/4b416d03ccfbe58115533e4cc2ccec03b80683b0))
+* **deps-dev:** bump yoast/phpunit-polyfills from 1.1.2 to 1.1.3 in the composer-dev-dependencies group ([#1306](https://github.com/pressbooks/pressbooks-book/issues/1306)) ([c39c35d](https://github.com/pressbooks/pressbooks-book/commit/c39c35de26f39cac22513bf03100df92433fd61d))
+* **deps-dev:** bump yoast/phpunit-polyfills from 1.1.3 to 1.1.4 in the composer-dev-dependencies group ([#1309](https://github.com/pressbooks/pressbooks-book/issues/1309)) ([5d5cb9b](https://github.com/pressbooks/pressbooks-book/commit/5d5cb9b4db7a6d8fa77897e598bf0ec153b1da8a))
+* **i10n:** Updates for project McLuhan ([#1307](https://github.com/pressbooks/pressbooks-book/issues/1307)) ([bc45414](https://github.com/pressbooks/pressbooks-book/commit/bc454144bfa7e43c8f5a378ca33f7193a4993b66))
+* update release metadata ([#1316](https://github.com/pressbooks/pressbooks-book/issues/1316)) ([858be61](https://github.com/pressbooks/pressbooks-book/commit/858be61e88697861246113bac16f0d115f025d35))
+* update workflows ([#1311](https://github.com/pressbooks/pressbooks-book/issues/1311)) ([aa51b8e](https://github.com/pressbooks/pressbooks-book/commit/aa51b8efb4799e900a6c724e21a2fd68217690a2))
+
+## [2.26.9](https://github.com/pressbooks/pressbooks-book/compare/2.26.8...2.26.9) (2025-01-06)
+
+
+### Bug Fixes
+
+* add hashtags to share ([#1296](https://github.com/pressbooks/pressbooks-book/issues/1296)) ([cec0692](https://github.com/pressbooks/pressbooks-book/commit/cec06929de91128129835bb7ab799b7ea3cc0f75))
+* add publisher city to metadata block ([#1300](https://github.com/pressbooks/pressbooks-book/issues/1300)) ([e9e3929](https://github.com/pressbooks/pressbooks-book/commit/e9e3929e4cb0a39e19ea724ef510921f4b7ce7fa))
+* update aria labels on H5P listing page ([#1301](https://github.com/pressbooks/pressbooks-book/issues/1301)) ([a63d81e](https://github.com/pressbooks/pressbooks-book/commit/a63d81e7b5e81c94a68c0cb81c10a6697ca51c1d))
+* update Twitter & YouTube icons ([#1290](https://github.com/pressbooks/pressbooks-book/issues/1290)) ([305d5b3](https://github.com/pressbooks/pressbooks-book/commit/305d5b3b3cacd307dab21a7ceff3a6fa1c1fc247))
+
+## [2.26.8](https://github.com/pressbooks/pressbooks-book/compare/2.26.7...2.26.8) (2024-10-21)
+
+
+### Bug Fixes
+
+* bump buckram 1.8.4 ([#1278](https://github.com/pressbooks/pressbooks-book/issues/1278)) ([1e89717](https://github.com/pressbooks/pressbooks-book/commit/1e897170a722e8cb7d35ca6409d8a05ba9d54efa))
+
+## [2.26.7](https://github.com/pressbooks/pressbooks-book/compare/2.26.6...2.26.7) (2024-10-07)
+
+
+### Bug Fixes
+
+* bump buckram to 1.8.3 ([#1271](https://github.com/pressbooks/pressbooks-book/issues/1271)) ([804bd59](https://github.com/pressbooks/pressbooks-book/commit/804bd59326e77a433b5c8e3d397c89dafc487dde))
+
+## [2.26.6](https://github.com/pressbooks/pressbooks-book/compare/2.26.5...2.26.6) (2024-10-07)
+
+
+### Bug Fixes
+
+* mathjax footnotes moved to buckram ([#1268](https://github.com/pressbooks/pressbooks-book/issues/1268)) ([b89b6de](https://github.com/pressbooks/pressbooks-book/commit/b89b6de8e5fe4f38b9912d93ae898f7177e5a6cc))
+
+## [2.26.5](https://github.com/pressbooks/pressbooks-book/compare/2.26.4...2.26.5) (2024-09-24)
+
+
+### Bug Fixes
+
+* style for mathjax in footnotes ([#1252](https://github.com/pressbooks/pressbooks-book/issues/1252)) ([72de26e](https://github.com/pressbooks/pressbooks-book/commit/72de26e9effe791233e35a48c4eafc3e9c7365ec))
+
+## [2.26.4](https://github.com/pressbooks/pressbooks-book/compare/2.26.3...2.26.4) (2024-05-09)
+
+
+### Bug Fixes
+
+* translation domain typo ([#1221](https://github.com/pressbooks/pressbooks-book/issues/1221)) ([3ef881e](https://github.com/pressbooks/pressbooks-book/commit/3ef881e4e7e0da8bee59eb365dc4e14353aeb220))
+
+## [2.26.3](https://github.com/pressbooks/pressbooks-book/compare/2.26.2...2.26.3) (2024-04-25)
+
+
+### Bug Fixes
+
+* filter lang map ([#1209](https://github.com/pressbooks/pressbooks-book/issues/1209)) ([1d20241](https://github.com/pressbooks/pressbooks-book/commit/1d2024128b81003deaa002d68d4646bd65324beb))
+* update variable INPUT_BRANCH to BRANCH to avoid Github runner emptying the value ([#1208](https://github.com/pressbooks/pressbooks-book/issues/1208)) ([c2365c9](https://github.com/pressbooks/pressbooks-book/commit/c2365c9ef8876ea2795346b29b2572db76c87abe))

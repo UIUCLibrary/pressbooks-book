@@ -2,9 +2,9 @@
 /// @group structure
 ////
 
-//========================
+// ========================
 // Content String Settings
-//========================
+// ========================
 
 // Metadata
 
@@ -22,6 +22,10 @@ meta[name="pb-subtitle"] {
 
 meta[name="pb-authors"] {
   string-set: book-author attr('content');
+}
+
+meta[name="pb-editors"] {
+  string-set: book-editor attr('content');
 }
 
 meta[name="pb-publisher"] {

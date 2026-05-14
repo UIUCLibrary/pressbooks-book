@@ -110,19 +110,22 @@ function license_to_icons( $license ) {
 	if ( ! $license ) {
 		return '';
 	}
+
 	$output = '';
+	$svg_tag = '<svg class="icon" style="fill: currentColor" role="presentation"><use href="#%s" /></svg>';
+
 	if ( strpos( $license, 'cc' ) !== false && $license !== 'cc-zero' ) {
 		$parts = explode( '-', $license );
 		foreach ( $parts as $part ) {
 			if ( $part !== 'cc' ) {
 				$part = 'cc-' . $part;
 			}
-			$output .= sprintf( '<svg class="icon" style="fill: currentColor"><use href="#%s" /></svg>', $part );
+			$output .= sprintf( $svg_tag, $part );
 		}
 	} elseif ( $license === 'cc-zero' ) {
-		$output .= '<svg class="icon" style="fill: currentColor"><use href="#cc-zero" /></svg>';
+		$output .= sprintf( $svg_tag, 'cc-zero' );
 	} elseif ( $license === 'public-domain' ) {
-		$output .= '<svg class="icon" style="fill: currentColor"><use href="#cc-pd" /></svg>';
+		$output .= sprintf( $svg_tag, 'cc-pd' );
 	} elseif ( $license === 'all-rights-reserved' ) {
 		return '';
 	}
@@ -176,12 +179,60 @@ function license_to_text( $license ) {
  * @return string The share widget.
  */
 function share_icons() {
-	return sprintf(
-		'<a class="sharer" data-sharer="twitter" data-title="%1$s" data-url="%2$s" data-via="%3$s"><svg role="img" aria-labelledby="twitter-logo" class="icon--svg"><title id="twitter-logo">Share on Twitter</title><use href="#twitter"/></svg></a>',
-		__( 'Check out this great book on Pressbooks.', 'pressbooks-book' ),
-		get_the_permalink(),
-		'pressbooks'
-	);
+	$share_message = __( 'Check out this great book published with Pressbooks.', 'pressbooks-book' );
+	$post_url = get_the_permalink();
+	$options = get_option( 'pressbooks_theme_options_web' );
+	$enabled_options = isset( $options['social_media_options'] ) ? $options['social_media_options'] : [];
+	$icons = '';
+	$metadata = pb_get_book_information();
+	$hashtags = isset( $metadata['pb_hashtag'] ) && ! empty( $metadata['pb_hashtag'] )
+		? $metadata['pb_hashtag']
+		: '';
+
+	if ( in_array( 'twitter', $enabled_options, true ) ) {
+		// If setting is enabled, display X/Twitter share button
+		$icons .= sprintf(
+			'<a class="sharer" data-sharer="twitter" data-title="%1$s" data-url="%2$s" data-hashtags="%3$s">
+            <svg role="img" aria-labelledby="twitter-logo" class="icon--svg">
+                <title id="twitter-logo">Share on X</title>
+                <use href="#twitter"/>
+            </svg>
+        </a>',
+			esc_attr( $share_message ),
+			esc_url( $post_url ),
+			esc_attr( $hashtags )
+		);
+	}
+
+	if ( in_array( 'linkedin', $enabled_options, true ) ) {
+		// If setting is enabled, display LinkedIn share button
+		$icons .= sprintf(
+			'<a class="sharer" data-sharer="linkedin" data-title="%1$s" data-url="%2$s">
+            <svg role="img" aria-labelledby="linkedin-logo" class="icon--svg">
+                <title id="linkedin-logo">Share on LinkedIn</title>
+                <use href="#linkedin-icon"/>
+            </svg>
+        </a>',
+			esc_attr( $share_message ),
+			esc_url( $post_url )
+		);
+	}
+
+	// If setting is enabled, display email share button
+	if ( in_array( 'email', $enabled_options, true ) ) {
+		$icons .= sprintf(
+			'<a class="sharer" data-sharer="email" data-title="%1$s" data-url="%2$s" data-via="pressbooks">
+            <svg role="img" aria-labelledby="email-logo" class="icon--svg">
+                <title id="email-logo">Share via Email</title>
+                <use href="#email"/>
+            </svg>
+        </a>',
+			esc_attr( $share_message ),
+			esc_url( $post_url )
+		);
+	}
+
+	return $icons;
 }
 
 /**
@@ -444,6 +495,7 @@ function get_metakeys(): array {
 		'pb_additional_subjects' => __( 'Additional Subject(s)', 'pressbooks-book' ),
 		'pb_institutions' => _n_noop( 'Institution', 'Institutions', 'pressbooks-book' ),
 		'pb_publisher' => __( 'Publisher', 'pressbooks-book' ),
+		'pb_publisher_city' => __( 'Publisher City', 'pressbooks-book' ),
 		'pb_publication_date' => __( 'Publication Date', 'pressbooks-book' ),
 		'pb_book_doi' => __( 'Digital Object Identifier (DOI)', 'pressbooks-book' ),
 		'pb_ebook_isbn' => __( 'Ebook ISBN', 'pressbooks-book' ),
@@ -636,30 +688,7 @@ function count_items( $value ): int {
  */
 function copyright_license( $show_custom_copyright = true ) {
 	$metadata = \Pressbooks\Book::getBookInformation();
-
-	if ( empty( $metadata['pb_book_license'] ) ) {
-		$all_rights_reserved = true;
-	} elseif ( $metadata['pb_book_license'] === 'all-rights-reserved' ) {
-		$all_rights_reserved = true;
-	} else {
-		$all_rights_reserved = false;
-	}
-	if ( ! empty( $metadata['pb_custom_copyright'] ) && $show_custom_copyright ) {
-		$has_custom_copyright = true;
-	} else {
-		$has_custom_copyright = false;
-	}
-
-	// Custom Copyright must override All Rights Reserved
-	$html = '';
-	if ( ! $has_custom_copyright || ( $has_custom_copyright && ! $all_rights_reserved ) ) {
-		$html .= \PressbooksBook\Helpers\do_license( $metadata );
-	}
-	if ( $has_custom_copyright ) {
-		$html .= '<div class="license-attribution">' . $metadata['pb_custom_copyright'] . '</div>';
-	}
-
-	return $html;
+  return \PressbooksBook\Helpers\do_license( $metadata, $show_custom_copyright );
 }
 
 /**
@@ -671,12 +700,12 @@ function copyright_license( $show_custom_copyright = true ) {
  *
  * @return string
  */
-function do_license( $metadata ) {
+function do_license( $metadata, $show_custom_copyright ) {
 	global $post;
 	$id = $post->ID;
 	try {
 		$licensing = new \Pressbooks\Licensing();
-		return $licensing->doLicense( $metadata, $id );
+		return $licensing->doLicense( $metadata, $id, '', $show_custom_copyright );
 	} catch ( \Exception $e ) {
 		error_log( $e->getMessage() ); // @codingStandardsIgnoreLine
 	}

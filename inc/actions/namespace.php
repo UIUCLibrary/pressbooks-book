@@ -34,6 +34,7 @@ function enqueue_assets() {
 		wp_dequeue_style( 'wp-block-library' );
 	}
 	wp_enqueue_style( 'book/book', $assets->getPath( 'styles/book.css' ), false, null );
+	wp_enqueue_style( 'book/iopn', $assets->getPath( 'styles/iopn.css' ), false, null );
 	wp_enqueue_style( 'book/webfonts', 'https://fonts.googleapis.com/css?family=Inconsolata|Karla:400,700|Spectral:400,700', false, null );
 	if ( social_media_enabled() ) {
 		wp_enqueue_script( 'sharer', $assets->getPath( 'scripts/sharer.js' ) );
@@ -271,7 +272,8 @@ function text_diff() {
  * @since 2.8.13
  */
 function redirect_attachment_page() {
-	if ( is_attachment() && ! current_user_can( 'upload_files' ) ) {
+//	Note: Disabling this redirect while working on https://github.com/pressbooks/pressbooks-book/issues/1043. We are using the media page to describe complex images.
+	if ( is_attachment() && ! current_user_can( 'upload_files' ) && false ) {
 		global $post;
 		if ( $post && $post->post_parent ) {
 			\Pressbooks\Redirect\location( esc_url( get_permalink( $post->post_parent ) ) );
